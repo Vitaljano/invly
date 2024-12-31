@@ -6,6 +6,7 @@ import (
 
 	"github.com/Vitaljano/invly/backend/config"
 	"github.com/Vitaljano/invly/backend/internal/auth"
+	"github.com/Vitaljano/invly/backend/pkg/middleware"
 	"github.com/Vitaljano/invly/backend/pkg/pdfgen"
 )
 
@@ -16,6 +17,11 @@ func main() {
 
 	//Handler
 	auth.NewAuthHandler(mux)
+
+	//Middleware
+	stack := middleware.Chain(
+		middleware.Logging,
+	)
 
 	in := pdfgen.Invoice{
 		InvoiceTitle:  "INVOICE",
@@ -61,7 +67,7 @@ func main() {
 	addr := fmt.Sprintf(":%s", conf.Port)
 	server := http.Server{
 		Addr:    addr,
-		Handler: mux,
+		Handler: stack(mux),
 	}
 
 	fmt.Println("Server start on port", addr)
