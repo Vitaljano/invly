@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/Vitaljano/invly/backend/config"
+	"github.com/Vitaljano/invly/backend/internal/auth"
 	"github.com/Vitaljano/invly/backend/pkg/pdfgen"
 )
 
@@ -12,6 +13,9 @@ func main() {
 	conf := config.Load()
 
 	mux := http.NewServeMux()
+
+	//Handler
+	auth.NewAuthHandler(mux)
 
 	in := pdfgen.Invoice{
 		InvoiceTitle:  "INVOICE",
