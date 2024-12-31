@@ -3,6 +3,8 @@ package auth
 import (
 	"fmt"
 	"net/http"
+
+	"github.com/Vitaljano/invly/backend/pkg/res"
 )
 
 type AuthHandler struct {
@@ -24,6 +26,8 @@ func (h *AuthHandler) Register() http.HandlerFunc {
 
 func (h *AuthHandler) Login() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		fmt.Println("login")
+		res.Json(w, LoginResponse{
+			Token: "asdasdasdasd",
+		}, http.StatusOK)
 	}
 }
