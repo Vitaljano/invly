@@ -8,7 +8,8 @@ import (
 )
 
 type Config struct {
-	Port string
+	Port             string
+	PdfInvoiceFolder string
 }
 
 func NewConfig() *Config {
@@ -22,7 +23,8 @@ func Load() *Config {
 	}
 
 	return &Config{
-		Port: os.Getenv("PORT"),
+		Port:             os.Getenv("PORT"),
+		PdfInvoiceFolder: os.Getenv("INVOICE_PDF_FOLDER"),
 	}
 
 }
