@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/Vitaljano/invly/backend/internal/customer"
 	"github.com/Vitaljano/invly/backend/internal/user"
 
 	"os"
@@ -22,5 +23,5 @@ func main() {
 		panic(err.Error())
 	}
 
-	db.AutoMigrate(&user.User{})
+	db.AutoMigrate(&user.User{}, &customer.Customer{})
 }

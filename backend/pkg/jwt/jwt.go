@@ -13,8 +13,10 @@ type JWTData struct {
 	Email string
 }
 
-func NewJwt() {
-
+func NewJwt(secret string) *JWT {
+	return &JWT{
+		Secret: secret,
+	}
 }
 
 func (j *JWT) Create(data JWTData) (string, error) {
@@ -26,7 +28,7 @@ func (j *JWT) Create(data JWTData) (string, error) {
 		"email": data.Email,
 	})
 
-	t, err := token.SignedString(j.Secret)
+	t, err := token.SignedString([]byte(j.Secret))
 
 	if err != nil {
 		return "", err
