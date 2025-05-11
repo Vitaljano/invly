@@ -1,13 +1,12 @@
-import { LitElement, html, css } from "lit";
-import { customElement } from 'lit/decorators.js';
+import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
 
+import "./logo";
 
-import "./logo"
-
-@customElement('app-nav')
-export class Navigation extends LitElement{
+@customElement("app-nav")
+export class Navigation extends LitElement {
   static styles = css`
-      header{
+    header{
           padding-inline: 2rem;
           height: 4rem;
           display: flex;
@@ -15,22 +14,22 @@ export class Navigation extends LitElement{
           justify-content: space-between;
           background:#1e1e1e;
 
+
       }
+
     nav {
         display: flex;
 
     }
-    `
-  render(){
-    return html`
+    `;
+	render() {
+		return html`
     <header>
         <app-logo></app-logo>
-        <nav>
-        <nav>
         <div>
             <sl-button variant="text" size="medium">Sing in</sl-button>
             <sl-button variant="default" size="medium" >Sing Up</sl-button>
         </div>
-    </header>`
-  }
+    </header>`;
+	}
 }
