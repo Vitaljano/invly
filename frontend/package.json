@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "@lit-labs/router": "^0.1.4",
+    "@lit/task": "^1.0.2",
     "@shoelace-style/shoelace": "^2.20.1",
     "lit": "^3.3.0",
-    "urlpattern-polyfill": "^10.1.0"
+    "urlpattern-polyfill": "^10.1.0",
+    "zod": "^3.24.4"
   },
   "devDependencies": {
     "@eslint/js": "^9.26.0",

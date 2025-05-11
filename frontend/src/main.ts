@@ -1,5 +1,5 @@
 import { Router } from '@lit-labs/router';
-import { LitElement, html } from 'lit';
+import { LitElement, html, css } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import './components/navigation';
@@ -17,6 +17,7 @@ setBasePath('/node_modules/@shoelace-style/shoelace/dist');
 
 @customElement('app-root')
 export class App extends LitElement {
+	static styles = css``;
 	private _routes = new Router(this, [
 		{
 			path: '/',
@@ -28,6 +29,6 @@ export class App extends LitElement {
 
 	render() {
 		return html`<app-nav></app-nav>
-			<main>${this._routes.outlet()}</main> `;
+			<main class="main">${this._routes.outlet()}</main> `;
 	}
 }

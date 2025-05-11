@@ -26,7 +26,7 @@ export class Navigation extends LitElement {
 				<sl-button href="/login" variant="text" size="medium"
 					>Sing in</sl-button
 				>
-				<sl-button variant="default" size="medium">Sing Up</sl-button>
+				<sl-button href="/" variant="default" size="medium">Sing Up</sl-button>
 			</div>
 		</header>`;
 	}
