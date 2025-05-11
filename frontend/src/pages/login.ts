@@ -1,5 +1,6 @@
 import { html, css, LitElement } from 'lit';
-import { Task } from '@lit/task';
+import { consume } from '@lit/context';
+import { authContext, type AuthContextType } from '../context/auth';
 
 import { customElement, state } from 'lit/decorators.js';
 import z from 'zod';
@@ -85,24 +86,8 @@ export class Login extends LitElement {
 		password: '',
 	};
 	@state() private _errors: Partial<Record<keyof typeof loginSchema.shape, string>> = {};
-
-	private _loginTask = new Task(this, {
-		task: async () => {
-			const response = await fetch('/api/login', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ ...this._formData }),
-			});
-
-			console.log(response);
-			if (!response.ok) {
-				const error = await response.json();
-				throw new Error(error.message || 'Login failed');
-			}
-
-			return response.json();
-		},
-	});
+	@consume({ context: authContext })
+	private _auth!: AuthContextType;
 
 	handleInput(e: Event) {
 		const target = e.target as HTMLInputElement;
@@ -142,7 +127,6 @@ export class Login extends LitElement {
 			Object.entries(fieldErrors).forEach(([field, errors]) => {
 				const input = this.renderRoot?.querySelector(`sl-input[name=${field}]`) as HTMLInputElement;
 				if (errors?.[0]) {
-					console.log('WTRF', input);
 					this._errors = { ...this._errors, [field]: errors[0] };
 					input?.setCustomValidity(errors[0]);
 				} else {
@@ -160,7 +144,7 @@ export class Login extends LitElement {
 			input?.reportValidity();
 		});
 
-		this._loginTask.run();
+		this._auth.login(this._formData.email, this._formData.password);
 	}
 
 	render() {
@@ -194,7 +178,7 @@ export class Login extends LitElement {
 							<sl-icon name="key" slot="prefix"></sl-icon>
 						</sl-input>
 						<sl-button class="submit" variant="success" type="submit">
-							<sl-icon slot="prefix" name="box-arrow-in-right"></sl-icon>
+							<sl-icon slot="prefix" name="box-arrow-in-right" style="font-size: 20px;"></sl-icon>
 							Login</sl-button
 						>
 					</div>
