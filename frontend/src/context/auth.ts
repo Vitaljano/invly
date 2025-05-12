@@ -37,6 +37,11 @@ export class AuthProvider extends LitElement {
 	};
 	logout = () => {
 		console.log('Not implemented');
+
+		this.auth = {
+			...this.auth,
+			isAuthenticated: false,
+		};
 	};
 
 	render() {
