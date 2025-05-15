@@ -3,6 +3,7 @@ import { customElement } from 'lit/decorators.js';
 import { consume } from '@lit/context';
 import { authContext, type AuthContextType } from '../context/auth';
 
+import './theme';
 import './logo';
 import './profile';
 
@@ -21,6 +22,12 @@ export class Navigation extends LitElement {
 		nav {
 			display: flex;
 		}
+
+		.control {
+			display: flex;
+			justify-items: center;
+			gap: 0.5rem;
+		}
 	`;
 	@consume({ context: authContext, subscribe: true })
 	private _auth!: AuthContextType;
@@ -31,11 +38,17 @@ export class Navigation extends LitElement {
 		return html` <header>
 			<app-logo></app-logo>
 			${this._auth.isAuthenticated
-				? html`<user-profile></user-profile>`
+				? html`
+						<div class="control">
+							<user-profile></user-profile>
+							<app-theme-switch></app-theme-switch>
+						</div>
+					`
 				: html`
-						<div>
+						<div class="control">
 							<sl-button href="/login" variant="text" size="medium">Sign in</sl-button>
 							<sl-button href="/" variant="default" size="medium">Sign Up</sl-button>
+							<app-theme-switch></app-theme-switch>
 						</div>
 					`}
 		</header>`;
